@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Issue } from '../issue';
 import { IssuesService } from '../issues.service';
@@ -10,6 +10,7 @@ import { IssuesService } from '../issues.service';
 })
 export class IssueReportComponent implements OnInit {
   issueForm: FormGroup | undefined;
+  @Output() formClose = new EventEmitter();
 
   constructor(
     private builder: FormBuilder,
@@ -27,5 +28,6 @@ export class IssueReportComponent implements OnInit {
 
   addIssue() {
     this.issueService.createIssue(this.issueForm?.value);
+    this.formClose.emit();
   }
 }
